@@ -44,7 +44,7 @@ INNER JOIN formula_one.dbo.races AS r ON res.raceId = r.raceId
 INNER JOIN formula_one.dbo.drivers AS d ON res.driverId = d.driverId
 WHERE r.year = 2021 AND res.[position] = 1 AND res.[position] <> '\N'
 
-*/
+
 -- how many races has each circuit held?
 -- circuit table (name), and races table (count(raceid))
 
@@ -55,3 +55,9 @@ LEFT JOIN races AS r ON c.circuitId = r.circuitId
 GROUP BY c.name 
 ORDER BY total_races DESC;
 
+*/
+
+SELECT TOP 300 b.title, b.average_rating, b.books_count, tr.user_id, tr.book_id
+FROM BooksDB.dbo.books AS b
+RIGHT JOIN BooksDB.dbo.to_read AS tr
+ON b.best_book_id = tr.book_id;
