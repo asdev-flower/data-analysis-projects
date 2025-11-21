@@ -55,9 +55,30 @@ LEFT JOIN races AS r ON c.circuitId = r.circuitId
 GROUP BY c.name 
 ORDER BY total_races DESC;
 
-*/
-
 SELECT TOP 300 b.title, b.average_rating, b.books_count, tr.user_id, tr.book_id
 FROM BooksDB.dbo.books AS b
 RIGHT JOIN BooksDB.dbo.to_read AS tr
 ON b.best_book_id = tr.book_id;
+
+
+SELECT TOP 3 b.title, SUM(bt.[count]) AS sum_of_tags,bt.goodreads_book_id
+FROM books AS b
+INNER JOIN book_tags AS bt
+ON b.best_book_id = bt.goodreads_book_id
+GROUP BY title, bt.goodreads_book_id
+ORDER BY sum_of_tags DESC
+*/
+--PtA: User 14771 has 15 books to read!
+SELECT TOP 10 tr.[user_id], COUNT(b.[title]) AS my_books_to_read
+FROM books AS b
+INNER JOIN to_read AS tr 
+ON b.book_id = tr.book_id
+GROUP BY tr.[user_id]
+ORDER BY my_books_to_read DESC
+
+--PtB: I chose 12483
+SELECT tr.[user_id], title
+FROM books AS b
+INNER JOIN to_read AS tr 
+ON b.book_id = tr.book_id
+WHERE tr.[user_id] = 12483
