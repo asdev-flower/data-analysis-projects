@@ -192,12 +192,3 @@ ORDER BY avg_wkly_hrs_code07_employees DESC
 20237120
 31336370
 */
-
-SELECT TOP 10 j.series_id,
-(j.[value] + a.[value])/2 inflation_adjusted_avg_wkly_earnings_prdctn_nonsprvsry, (SELECT industry_name FROM industry WHERE SUBSTRING(j.series_id, 4, 8) = industry_code) AS industry_name_proxy
-
-FROM january_2017 j INNER JOIN annual_2016 a ON j.series_id = a.series_id
-
-WHERE j.series_id LIKE '%31'
-
-GROUP BY j.series_id, j.[value], a.[value] ORDER BY inflation_adjusted_avg_wkly_earnings_prdctn_nonsprvsry DESC
