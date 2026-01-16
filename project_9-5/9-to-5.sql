@@ -192,3 +192,17 @@ ORDER BY avg_wkly_hrs_code07_employees DESC
 20237120
 31336370
 */
+SELECT
+    j.series_id,
+    SUBSTRING(j.series_id, 4, 8) AS industry_code,
+    i.industry_name,
+    FORMAT(j.value, 'C', 'en-us') AS weekly_payroll_formatted
+FROM january_2017 AS j
+JOIN industry AS i
+    ON SUBSTRING(j.series_id, 4, 8) = i.industry_code
+WHERE j.series_id LIKE '%30'
+AND j.value >
+    (SELECT AVG(value)
+     FROM annual_2016
+     WHERE series_id LIKE '%30')
+ORDER BY j.value DESC;
